@@ -97,6 +97,9 @@ preprocessor = ColumnTransformer(
             StandardScaler(),
             numerical_features
         ),
+        #df = pd.get_dummies(df) It works, 
+        #but it's not suitable for deployment because when a new category appears in production, 
+        # your model can break.
         (
             "cat",
             OneHotEncoder(handle_unknown="ignore"),
