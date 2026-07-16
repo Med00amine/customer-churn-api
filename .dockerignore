@@ -1,0 +1,10 @@
+.venv
+.git
+.gitignore
+__pycache__
+.ipynb_checkpoints
+data/
+training/
+tests/
+README.md
+requirements-dev.txt

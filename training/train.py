@@ -1,6 +1,3 @@
-import os
-import joblib
-from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from preprocess import *
@@ -15,7 +12,7 @@ from sklearn.metrics import (
 )
 
 rf = RandomForestClassifier(
-    n_estimators=500,
+    n_estimators=200,
     criterion="gini",
     max_depth=20,
     min_samples_split=5,
@@ -121,6 +118,9 @@ print(
     )
 )
 
+# now we print the model's parameters and the type of classifier used
+print(model.named_steps)
+print(type(model.named_steps["classifier"]))
 
 
 # now we save the preprocessor object to a file using joblib
