@@ -1,19 +1,16 @@
 import joblib
 import pandas as pd
 from pathlib import Path
-
-
+from app.logger import logger
+from app.config import MODEL_PATH
 # Load model once when the API starts
 
 
 
 
-# Parent directory of the current file
-BASE_DIR = Path(__file__).resolve().parent.parent
-MODEL_PATH = BASE_DIR / "models"/ "Preprocess_RandomForest_Model.pkl"
-
+logger.info("Loading trained model...")
 model = joblib.load(MODEL_PATH)
-
+logger.info("Model loaded successfully.")
 
 # Mapping from API field names -> training column names
 
@@ -36,38 +33,55 @@ COLUMN_MAPPING = {
     "Total_Charges": "Total Charges",
 }
 
+logger.info("Received prediction request.")
+try:
+    logger.info("Starting prediction...")
+    def predict_customer(customer):
+        """
+        Predict customer churn.
 
-def predict_customer(customer):
-    """
-    Predict customer churn.
+        Parameters
+        ----------
+        customer : CustomerData
+            Validated Pydantic object.
 
-    Parameters
-    ----------
-    customer : CustomerData
-        Validated Pydantic object.
+        Returns
+        -------
+        dict
+            Prediction and probability.
+        """
 
-    Returns
-    -------
-    dict
-        Prediction and probability.
-    """
+        # Convert Pydantic model to dictionary
+        customer_dict = customer.model_dump()
 
-    # Convert Pydantic model to dictionary
-    customer_dict = customer.model_dump()
+        # Convert dictionary to DataFrame
+        df = pd.DataFrame([customer_dict])
 
-    # Convert dictionary to DataFrame
-    df = pd.DataFrame([customer_dict])
+        # Rename columns to match training data
+        df.rename(columns=COLUMN_MAPPING, inplace=True)
 
-    # Rename columns to match training data
-    df.rename(columns=COLUMN_MAPPING, inplace=True)
+        # Predict
+        prediction = model.predict(df)[0]
 
-    # Predict
-    prediction = model.predict(df)[0]
+        probability = model.predict_proba(df)[0][1]
+        logger.info(f"Prediction={prediction} Probability={probability:.4f}")
+        risk_level = "High" if probability > 0.7 else "Medium" if probability > 0.4 else "Low"
+        if risk_level == "High":
+            recommendation = "Offer a retention discount and contact the customer."
+        elif risk_level == "Medium":
+            recommendation = "Send a personalized promotion."
+        else:
+            recommendation = "No action required."
+        
+        logger.info("Prediction completed successfully.")
+        return {
+            "prediction": int(prediction),
+            "prediction_label": "Churn" if prediction == 1 else "No Churn",
+            "probability": round(float(probability), 4),
+            "risk_level": risk_level,
+            "recommendation": recommendation
+        }
 
-    probability = model.predict_proba(df)[0][1]
-
-    return {
-        "prediction": int(prediction),
-        "prediction_label": "Churn" if prediction == 1 else "No Churn",
-        "probability": round(float(probability), 4),
-    }
+except Exception as e:
+    logger.error(f"Error during prediction: {e}")
+    raise e
