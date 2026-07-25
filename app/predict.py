@@ -1,15 +1,17 @@
 import joblib
 import pandas as pd
-from pathlib import Path
 from app.logger import logger
 from app.config import MODEL_PATH
+from dotenv import load_dotenv
+import os
 # Load model once when the API starts
 
 
 
 
+load_dotenv()
 logger.info("Loading trained model...")
-model = joblib.load(MODEL_PATH)
+MODEL_PATH = os.getenv("MODEL_PATH", "models/model.pkl")
 logger.info("Model loaded successfully.")
 
 # Mapping from API field names -> training column names
