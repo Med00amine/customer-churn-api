@@ -1,340 +1,242 @@
-This project can be completed in **10 steps**. Each step produces something tangible that you can commit to GitHub.
+# Customer Churn Prediction API
 
-# Step 1: Download and Explore the Dataset
-
-**Goal:** Understand the data.
-
-Tasks:
-
-* Download the dataset.
-* Open it in Jupyter Notebook or VS Code.
-* Check:
-
-  * Number of rows and columns.
-  * Missing values.
-  * Data types.
-  * Class distribution (`Churn`).
-
-Libraries:
-
-* pandas
-* matplotlib
-* seaborn
-
-**Commit:**
-
-```
-Initial project setup and dataset exploration
-```
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.116-green)
+![Docker](https://img.shields.io/badge/Docker-Ready-blue)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
+![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-success)
 
 ---
 
-# Step 2: Data Preprocessing
+#  Overview
 
-**Goal:** Prepare the data for training.
+This project is an end-to-end Machine Learning application that predicts customer churn using a Random Forest classifier.
 
-Tasks:
+The application includes the complete ML workflow:
 
-* Remove unnecessary columns (`customerID`).
-* Handle missing values.
-* Encode categorical variables.
-* Scale numerical features if needed.
-* Split into train/test sets.
+- Data exploration
+- Data preprocessing
+- Feature engineering
+- Machine Learning pipeline
+- REST API with FastAPI
+- Docker containerization
+- Automated testing
+- GitHub Actions CI
 
-Output:
-
-```
-X_train
-X_test
-y_train
-y_test
-```
-
-**Commit:**
-
-```
-Add preprocessing pipeline
-```
+The trained model is exposed through a REST API that accepts customer information and returns the churn prediction together with the probability.
 
 ---
 
-# Step 3: Train the Model
+#  Features
 
-**Goal:** Build a baseline model.
+- End-to-End Machine Learning Pipeline
+- FastAPI REST API
+- Pydantic Request Validation
+- Random Forest Classifier
+- Docker Support
+- Docker Compose
+- Unit Testing with Pytest
+- GitHub Actions Continuous Integration
+- Logging
+- Environment Configuration (.env)
 
-Start with:
-
-* Random Forest
-
-Then compare with:
-
-* Logistic Regression
-* XGBoost (optional)
-
-Evaluate:
-
-* Accuracy
-* Precision
-* Recall
-* F1-score
-* ROC-AUC
-
-**Commit:**
-
-```
-Train baseline churn prediction model
-```
 
 ---
 
-# Step 4: Save the Model
+# 🛠 Tech Stack
 
-**Goal:** Reuse the trained model without retraining.
-
-Use `joblib`:
-
-```
-model.pkl
-```
-
-Save any preprocessing objects (e.g., encoder or pipeline) if required.
-
-Project structure:
-
-```
-models/
-    model.pkl
-```
-
-**Commit:**
-
-```
-Save trained model
-```
+| Category | Technology |
+|----------|------------|
+| Language | Python |
+| Machine Learning | Scikit-Learn |
+| API | FastAPI |
+| Validation | Pydantic |
+| Containerization | Docker |
+| CI/CD | GitHub Actions |
+| Testing | Pytest |
+| Version Control | Git |
+| Environment | dotenv |
 
 ---
 
-# Step 5: Build the FastAPI Application
-
-**Goal:** Expose the model through an API.
-
-Endpoints:
-
-```
-GET /
-```
-
-Returns:
-
-```json
-{
-  "message": "Customer Churn Prediction API"
-}
-```
-
-```
-POST /predict
-```
-
-Returns:
-
-```json
-{
-  "prediction": "No",
-  "probability": 0.91
-}
-```
-
-**Commit:**
-
-```
-Create prediction API
-```
-
----
-
-# Step 6: Test the API
-
-Tools:
-
-* Swagger UI (`/docs`)
-* Postman
-* `curl`
-
-Verify:
-
-* Correct predictions.
-* Input validation.
-* Error handling.
-
-**Commit:**
-
-```
-Add API tests
-```
-
----
-
-# Step 7: Dockerize the Application
-
-Create:
-
-* `Dockerfile`
-* `.dockerignore`
-
-Build:
-
-```bash
-docker build -t churn-api .
-```
-
-Run:
-
-```bash
-docker run -p 8000:8000 churn-api
-```
-
-**Commit:**
-
-```
-Dockerize application
-```
-
----
-
-# Step 8: Docker Compose
-
-Even with one service, use Docker Compose because it's common in production.
-
-Create:
-
-```
-docker-compose.yml
-```
-
-Start:
-
-```bash
-docker compose up --build
-```
-
-**Commit:**
-
-```
-Add Docker Compose
-```
-
----
-
-# Step 9: Documentation
-
-Write a professional `README.md` including:
-
-* Project overview
-* Architecture
-* Dataset
-* Installation
-* Docker usage
-* API endpoints
-* Example requests and responses
-* Model performance
-* Screenshots (Swagger UI)
-
-**Commit:**
-
-```
-Improve project documentation
-```
-
----
-
-# Step 10: Publish to GitHub
-
-Before pushing:
-
-* Add `.gitignore`
-* Remove large files if necessary
-* Organize folders
-* Ensure everything runs with:
-
-```bash
-docker compose up --build
-```
-
-Push:
-
-```bash
-git init
-git add .
-git commit -m "Initial release"
-git branch -M main
-git remote add origin <your_repository_url>
-git push -u origin main
-```
-
----
-
-# Final Architecture
+# Project Structure
 
 ```text
-                 Customer Data
-                       │
-                       ▼
-             Data Preprocessing
-                       │
-                       ▼
-               Train ML Model
-                       │
-                       ▼
-                 Save model.pkl
-                       │
-                       ▼
-               FastAPI Application
-                       │
-                       ▼
-                POST /predict
-                       │
-                       ▼
-                JSON Prediction
-                       │
-                       ▼
-               Docker Container
-                       │
-                       ▼
-                  Docker Compose
+customer-churn-api/
+
+├── app/
+├── training/
+├── models/
+├── tests/
+├── data/
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── README.md
+└── .github/workflows/
 ```
 
-# Skills You'll Demonstrate
+---
 
-| Category             | Skills                                                              |
-| -------------------- | ------------------------------------------------------------------- |
-| Machine Learning     | Data preprocessing, feature engineering, model training, evaluation |
-| Backend              | FastAPI, REST APIs                                                  |
-| Deployment           | Docker, Docker Compose                                              |
-| Software Engineering | Project structure, Git, GitHub                                      |
-| Documentation        | Professional README, API documentation                              |
+# Installation
 
-## Estimated Timeline
+```bash
+git clone https://github.com/Med00amine/customer-churn-api.git
 
-| Step                | Time      |
-| ------------------- | --------- |
-| Dataset exploration | 30–45 min |
-| Preprocessing       | 1–2 h     |
-| Model training      | 1–2 h     |
-| Save model          | 15 min    |
-| FastAPI             | 2 h       |
-| Testing             | 30 min    |
-| Docker              | 1 h       |
-| Docker Compose      | 30 min    |
-| README              | 1–2 h     |
-| GitHub              | 30 min    |
+cd customer-churn-api
 
-**Total:** approximately **8–12 hours**, which fits comfortably into **1–2 days**.
+python -m venv .venv
 
-This project will give you a portfolio piece that demonstrates an end-to-end ML workflow—from data preparation and model training to serving predictions through a containerized API.
+source .venv/bin/activate
+```
 
+Windows
 
+```powershell
+.venv\Scripts\activate
+```
 
+Install dependencies
 
+```bash
+pip install -r requirements.txt
+```
 
+---
+
+# Running the API
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Swagger Documentation
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# Docker
+
+Build
+
+```bash
+docker build -t customer-churn-api .
+```
+
+Run
+
+```bash
+docker run -p 8000:8000 customer-churn-api
+```
+
+Docker Compose
+
+```bash
+docker compose up --build
+```
+
+---
+
+# API Endpoints
+
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | / | Home |
+| GET | /health | Health Check |
+| POST | /predict | Predict Customer Churn |
+
+---
+
+# Example Request
+
+```json
+{
+    "Gender":"Male",
+    "Senior_Citizen":"No",
+    "Partner":"Yes",
+    "Dependents":"No",
+    "Tenure_Months":12,
+    "Phone_Service":"Yes",
+    "Multiple_Lines":"No",
+    "Internet_Service":"Fiber optic",
+    "Online_Security":"No",
+    "Online_Backup":"Yes",
+    "Device_Protection":"No",
+    "Tech_Support":"No",
+    "Streaming_TV":"Yes",
+    "Streaming_Movies":"No",
+    "Contract":"Month-to-month",
+    "Paperless_Billing":"Yes",
+    "Payment_Method":"Electronic check",
+    "Monthly_Charges":70.35,
+    "Total_Charges":840.20,
+    "CLTV":3500
+}
+```
+
+---
+
+# Example Response
+
+```json
+{
+    "prediction":"Churn",
+    "probability":81.47,
+    "risk_level":"High"
+}
+```
+
+---
+
+# Machine Learning Pipeline
+
+- Data Cleaning
+- Feature Engineering
+- OneHotEncoder
+- StandardScaler
+- ColumnTransformer
+- Random Forest Classifier
+- Scikit-Learn Pipeline
+
+---
+
+# Model Evaluation
+
+Metrics used:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
+
+---
+
+# Continuous Integration
+
+Every push automatically:
+
+- Installs dependencies
+- Runs unit tests
+- Verifies the project builds successfully
+
+---
+
+# Future Improvements
+
+- Deploy on AWS EC2
+- Add Prometheus Monitoring
+- Add Grafana Dashboard
+- Model Versioning with MLflow
+- Authentication
+- Kubernetes Deployment
+
+---
+
+# Author
+
+**Mohamed Amine Bouzoffara**
 
