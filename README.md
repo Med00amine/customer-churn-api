@@ -227,7 +227,7 @@ The `/health` endpoint verifies that the API is running correctly.
 
 Example prediction returned by the deployed model.
 
-![Prediction](images/predict-example.png)
+![Prediction](images/prediction-example.png)
 
 
 ---
