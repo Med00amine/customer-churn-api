@@ -43,7 +43,7 @@ The trained model is exposed through a REST API that accepts customer informatio
 
 ---
 
-# 🛠 Tech Stack
+# Tech Stack
 
 | Category | Technology |
 |----------|------------|
