@@ -11,7 +11,7 @@ import os
 
 load_dotenv()
 logger.info("Loading trained model...")
-MODEL_PATH = os.getenv("MODEL_PATH", "models/model.pkl")
+MODEL_PATH = os.getenv("MODEL_PATH", "models/Preprocess_RandomForest_Model.pkl")
 logger.info("Model loaded successfully.")
 
 # Mapping from API field names -> training column names
