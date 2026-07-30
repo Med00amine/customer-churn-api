@@ -188,6 +188,47 @@ docker compose up --build
     "risk_level":"High"
 }
 ```
+## ☁️ Deployment on AWS
+
+The application is deployed on an AWS EC2 Ubuntu instance using Docker.
+
+Deployment workflow:
+
+GitHub
+↓
+AWS EC2
+↓
+Docker Container
+↓
+FastAPI
+↓
+REST API
+
+## AWS EC2 Instance
+
+The application is deployed on an Ubuntu EC2 instance.
+
+![EC2 Running](images/ec2-running.png)
+
+## Swagger Documentation
+
+The REST API provides interactive documentation through FastAPI Swagger UI.
+
+![Swagger](images/swagger-home.png)
+
+## Health Check Endpoint
+
+The `/health` endpoint verifies that the API is running correctly.
+
+![Health](images/health-endpoint.png)
+
+
+## Prediction Example
+
+Example prediction returned by the deployed model.
+
+![Prediction](images/predict-example.png)
+
 
 ---
 
@@ -212,27 +253,6 @@ Metrics used:
 - Recall
 - F1 Score
 - ROC-AUC
-
----
-
-# Continuous Integration
-
-Every push automatically:
-
-- Installs dependencies
-- Runs unit tests
-- Verifies the project builds successfully
-
----
-
-# Future Improvements
-
-- Deploy on AWS EC2
-- Add Prometheus Monitoring
-- Add Grafana Dashboard
-- Model Versioning with MLflow
-- Authentication
-- Kubernetes Deployment
 
 ---
 
