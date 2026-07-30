@@ -194,15 +194,7 @@ The application is deployed on an AWS EC2 Ubuntu instance using Docker.
 
 Deployment workflow:
 
-GitHub
-↓
-AWS EC2
-↓
-Docker Container
-↓
-FastAPI
-↓
-REST API
+GitHub -> AWS EC2 -> Docker Container -> FastAPI -> REST API
 
 ## AWS EC2 Instance
 
