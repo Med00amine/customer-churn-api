@@ -134,5 +134,5 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MODELS_DIR = BASE_DIR / "models"
 MODELS_DIR.mkdir(exist_ok=True)
 
-dump(model, MODELS_DIR / "RandomForest_Model.pkl")
-print(f"Model saved to {MODELS_DIR}/RandomForest_Model.pkl")
+dump(model, MODELS_DIR / "Preprocess_RandomForest_Model.pkl")
+print(f"Model saved to {MODELS_DIR}/Preprocess_RandomForest_Model.pkl")

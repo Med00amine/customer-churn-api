@@ -1,10 +1,28 @@
 # Customer Churn Prediction API
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.116-green)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.139-green)
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue)
 ![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
 ![GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-success)
+
+
+> An end-to-end ML system: a Random Forest churn model served through **FastAPI**, packaged with **Docker**, tested in **GitHub Actions** CI, and **deployed live on AWS EC2**.
+
+## ☁️ Live on AWS
+
+<table>
+  <tr>
+    <td width="50%"><img src="images/swagger-home.png" alt="Swagger UI"/><p align="center"><b>Interactive API docs (Swagger UI)</b></p></td>
+    <td width="50%"><img src="images/prediction-example.png" alt="Prediction example"/><p align="center"><b>Real-time churn prediction</b></p></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="images/ec2-running.png" alt="EC2 instance running"/><p align="center"><b>Running on an Ubuntu EC2 instance</b></p></td>
+    <td width="50%"><img src="images/health-endpoint.png" alt="Health endpoint"/><p align="center"><b><code>/health</code> endpoint for monitoring</b></p></td>
+  </tr>
+</table>
+
+**Deployment flow:** `GitHub → AWS EC2 (Ubuntu) → Docker container → FastAPI (Uvicorn) → REST API on port 8000`
 
 ---
 
@@ -183,46 +201,41 @@ docker compose up --build
 
 ```json
 {
-    "prediction":"Churn",
-    "probability":81.47,
-    "risk_level":"High"
+    "prediction": 1,
+    "prediction_label": "Churn",
+    "probability": 0.8147,
+    "risk_level": "High",
+    "recommendation": "Offer a retention discount and contact the customer."
 }
 ```
-## ☁️ Deployment on AWS
 
-The application is deployed on an AWS EC2 Ubuntu instance using Docker.
+Risk levels: **High** (probability > 0.7), **Medium** (> 0.4), **Low** otherwise.
 
-Deployment workflow:
+Try it with curl:
 
-GitHub -> AWS EC2 -> Docker Container -> FastAPI -> REST API
-
-## AWS EC2 Instance
-
-The application is deployed on an Ubuntu EC2 instance.
-
-![EC2 Running](images/ec2-running.png)
-
-## Swagger Documentation
-
-The REST API provides interactive documentation through FastAPI Swagger UI.
-
-![Swagger](images/swagger-home.png)
-
-## Health Check Endpoint
-
-The `/health` endpoint verifies that the API is running correctly.
-
-![Health](images/health-endpoint.png)
-
-
-## Prediction Example
-
-Example prediction returned by the deployed model.
-
-![Prediction](images/prediction-example.png)
-
+```bash
+curl -X POST http://127.0.0.1:8000/predict   -H "Content-Type: application/json"   -d @sample.json
+```
 
 ---
+
+# Running Tests
+
+```bash
+pytest
+```
+
+The test suite checks the `/`, `/health` and `/predict` endpoints against the trained model. Tests run automatically on every push and pull request via GitHub Actions.
+
+---
+
+# Retraining the Model
+
+```bash
+python training/train.py
+```
+
+This rebuilds the preprocessing + Random Forest pipeline and saves it to `models/Preprocess_RandomForest_Model.pkl`, the path the API loads by default. Override it with the `MODEL_PATH` environment variable (e.g. in `.env`).
 
 # Machine Learning Pipeline
 

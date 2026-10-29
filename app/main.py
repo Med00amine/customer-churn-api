@@ -3,7 +3,6 @@ from fastapi import FastAPI
 from app.schemas import CustomerData
 from app.predict import predict_customer
 from app.config import API_TITLE, API_VERSION
-from fastapi import FastAPI
 from app.logger import logger
 
 logger.info("Starting Customer Churn Prediction API...")
