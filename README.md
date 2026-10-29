@@ -183,11 +183,42 @@ docker compose up --build
 
 ```json
 {
-    "prediction":"Churn",
-    "probability":81.47,
-    "risk_level":"High"
+    "prediction": 1,
+    "prediction_label": "Churn",
+    "probability": 0.8147,
+    "risk_level": "High",
+    "recommendation": "Offer a retention discount and contact the customer."
 }
 ```
+
+Risk levels: **High** (probability > 0.7), **Medium** (> 0.4), **Low** otherwise.
+
+Try it with curl:
+
+```bash
+curl -X POST http://127.0.0.1:8000/predict   -H "Content-Type: application/json"   -d @sample.json
+```
+
+---
+
+# Running Tests
+
+```bash
+pytest
+```
+
+The test suite checks the `/`, `/health` and `/predict` endpoints against the trained model. Tests run automatically on every push and pull request via GitHub Actions.
+
+---
+
+# Retraining the Model
+
+```bash
+python training/train.py
+```
+
+This rebuilds the preprocessing + Random Forest pipeline and saves it to `models/Preprocess_RandomForest_Model.pkl`, the path the API loads by default. Override it with the `MODEL_PATH` environment variable (e.g. in `.env`).
+
 ## ☁️ Deployment on AWS
 
 The application is deployed on an AWS EC2 Ubuntu instance using Docker.

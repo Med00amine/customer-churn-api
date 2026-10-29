@@ -8,7 +8,8 @@ services:
     volumes:
       - .:/app
     env_file:
-      - .env
+      - path: .env
+        required: false
 
 
     healthcheck:

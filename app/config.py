@@ -4,7 +4,10 @@ import os
 load_dotenv()  # Load environment variables from .env file
 
 # Access environment variables
-MODEL_PATH = os.getenv("MODEL_PATH")
+MODEL_PATH = os.getenv(
+    "MODEL_PATH",
+    "models/Preprocess_RandomForest_Model.pkl"
+)
 API_TITLE = os.getenv(
     "API_TITLE",
     "Customer Churn Prediction API"
